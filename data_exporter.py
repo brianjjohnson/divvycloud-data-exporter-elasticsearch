@@ -43,7 +43,9 @@ _SETTING_PROPERTY_PREFIX = DivvyPlugin.get_current_plugin().name
 _SETTING_RESOURCE_LIST            = '%s.export_list' % (_SETTING_PROPERTY_PREFIX)
 _SETTING_ENABLED            = '%s.enabled' % (_SETTING_PROPERTY_PREFIX)
 
-setting_resource_selection = GlobalSetting(name=_SETTING_RESOURCE_LIST,display_name='Select Resources to export',type_hint='json_list',description='Select Resources to Export',choices=[SelectionChoice(str(cls)) for cls in  get_all_classes()])
+resource_choices = [str(cls.get_resource_type()) for cls in get_all_classes() ]
+
+setting_resource_selection = GlobalSetting(name=_SETTING_RESOURCE_LIST,display_name='Select Resources to export',type_hint='json_list',description='Select Resources to Export',choices=resource_choices)
 setting_enabled = GlobalSetting(name=_SETTING_ENABLED,display_name='Enabled exporter',type_hint='bool',description='Enabled data exporter',default_value='false')
 #
 # @hookpoint('divvycloud.resource.modified')
@@ -61,6 +63,8 @@ setting_enabled = GlobalSetting(name=_SETTING_ENABLED,display_name='Enabled expo
 #         exporter = ResourceExporter()
 #         converted_resource = exporter.convert_resource(resource)
 #         exporter.export_resource(converted_resource)
+
+
 
 class ResourceExporter(PluginJob):
     def __init__(self):
