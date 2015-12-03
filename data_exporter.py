@@ -128,7 +128,7 @@ def list_job_templates():
     """
     # Only 1 job template for this job
     return [SimpleJobTemplate(job_class=ResourceExporter,
-                              schedule_goal=schedules.LazyScheduleGoal(queue_name='DivvyCloudProcessors', schedulable=schedule.Periodic(minutes=5)),
+                              schedule_goal=schedules.LazyScheduleGoal(queue_name='DivvyCloudProcessors', schedulable=schedule.Periodic(minutes=30)),
                               template_id='processor-dataexporter')]
 
 
